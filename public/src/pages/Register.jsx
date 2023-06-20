@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 import Logo from '../assets/drift-high-resolution-logo-color-on-transparent-background.png';
+import { registerRoute } from '../utils/apiRoutes';
+
+const toastOptions = {
+    position: "bottom-right",
+    autoClose: 6000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark"
+};
 
 function Register() {
     const [values, setValues] = useState({
@@ -12,10 +24,35 @@ function Register() {
         confirmPassword: ""
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("form");
+        if(handleValidation()) {
+            const {password, confirmPassword, username, email} = values;
+            const {data} = await axios.post(registerRoute, {username, email, password});
+        }
     }
+
+    const handleValidation = () => {
+        const {password, confirmPassword, username, email} = values;
+        if(password!==confirmPassword) {
+            toast.error("Passwords entered do not match", toastOptions);
+            return false;
+        }
+        else if(username.length<3) {
+            toast.error("Please choose a username with at least 3 characters", toastOptions);
+            return false;
+        }
+        else if(password.length<8) {
+            toast.error("Password is not long enough! Please use 8+ characters", toastOptions);
+            return false;
+        }
+        else if(email==="") {
+            toast.error("An email address is required", toastOptions);
+            return false;
+        }
+        return true;
+    }
+
     const handleChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value});
     }
@@ -57,6 +94,7 @@ function Register() {
                     </span>
                 </form>
             </FormContainer>
+            <ToastContainer />
         </>
     )
 }
