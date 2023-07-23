@@ -27,13 +27,18 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(handleValidation()) {
-            const {password, confirmPassword, username, email} = values;
-            const {data} = await axios.post(registerRoute, {username, email, password});
+            console.log("in validation", registerRoute);
+            const { password, confirmPassword, username, email } = values;
+            const { data } = await axios.post(registerRoute, {username, email, password}, {
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+            });
         }
     }
 
     const handleValidation = () => {
-        const {password, confirmPassword, username, email} = values;
+        const { password, confirmPassword, username, email } = values;
         if(password!==confirmPassword) {
             toast.error("Passwords entered do not match", toastOptions);
             return false;
@@ -90,7 +95,7 @@ function Register() {
                     />
                     <button type="submit">Create User</button>
                     <span>
-                        Already have an account? <Link to="/Login">Login</Link>
+                        Already have an account? <Link to="/login">Login</Link>
                     </span>
                 </form>
             </FormContainer>
@@ -143,6 +148,8 @@ const FormContainer = styled.div`
             padding: 1rem 2rem;
             background-color: #00CDCD;
             color: #0E143D;
+            position: relative;
+            overflow: hidden;
             border: none;
             border-radius: 0.4rem;
             font-weight: bold;
@@ -150,7 +157,22 @@ const FormContainer = styled.div`
             font-size: 1rem;
             text-transform: uppercase;
             transition: 0.2s ease-in-out;
+            &::after {
+                content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%2300CDCD' fill-opacity='1' d='M0,64L21.8,58.7C43.6,53,87,43,131,85.3C174.5,128,218,224,262,245.3C305.5,267,349,213,393,202.7C436.4,192,480,224,524,213.3C567.3,203,611,149,655,154.7C698.2,160,742,224,785,250.7C829.1,277,873,267,916,261.3C960,256,1004,256,1047,229.3C1090.9,203,1135,149,1178,122.7C1221.8,96,1265,96,1309,101.3C1352.7,107,1396,117,1418,122.7L1440,128L1440,320L1418.2,320C1396.4,320,1353,320,1309,320C1265.5,320,1222,320,1178,320C1134.5,320,1091,320,1047,320C1003.6,320,960,320,916,320C872.7,320,829,320,785,320C741.8,320,698,320,655,320C610.9,320,567,320,524,320C480,320,436,320,393,320C349.1,320,305,320,262,320C218.2,320,175,320,131,320C87.3,320,44,320,22,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+                position: absolute;
+                width: 105%;
+                left: -20px;
+                bottom: -5rem;
+                transition: 0.4s ease-out;
+            }
             &:hover {
+                background-color: #FFE8B5;
+            }
+            &:active::after {
+                left: 0;
+                bottom: -1.6rem;
+            }
+            &:active {
                 background-color: #FFE8B5;
             }
         }
@@ -166,6 +188,20 @@ const FormContainer = styled.div`
                     color: #FFE8B5;
                 }
             }
+        }
+    }
+    @keyframes seashore {
+        0%: {
+            bottom: -5rem;
+            left: -20px;
+        }
+        80%: {
+            bottom: -3rem;
+            left: -20px;
+        }
+        100%: {
+            bottom: -2rem;
+            left: 0;
         }
     }
 `
