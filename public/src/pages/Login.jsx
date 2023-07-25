@@ -20,9 +20,14 @@ function Login() {
     const navigate = useNavigate();
     const [values, setValues] = useState({
         username: "",
-        email: "",
         password: "",
     });
+
+    useEffect(() => {
+        if(localStorage.getItem('drift-user')) {
+            navigate('/');
+        }
+    },[]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
