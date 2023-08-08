@@ -23,10 +23,10 @@ export default function SetAvatar() {
     const navigate = useNavigate();
 
     const [avatars, setAvatars] = useState([]);
-    const [isloading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [selectedAvatar, setSelectedAvatar] = useState();
 
-    async function fetchAvatars() {
+    const fetchAvatars = async () => {
         const data = [];
         try {
             for(let i=0; i<4; i++) {
@@ -41,18 +41,48 @@ export default function SetAvatar() {
         }
         setAvatars(data);
         setIsLoading(false);
-    }
+    };
+
+    const protectRoute = async () => {
+        if(!localStorage.getItem('drift-user')) {
+            navigate("/login");
+        }
+    };
 
     useEffect(() => {
+        protectRoute();
         fetchAvatars();
     }, []);
 
     const setProfilePicture = async () => {
+        if(!selectedAvatar) {
+            toast.error("Please select an avatar", toastOptions);
+        }
+        else {
+            const user = await JSON.parse(localStorage.getItem('drift-user'));
+            const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
+                image: avatars[selectedAvatar]
+            });
 
+            if(data.isSet) {
+                user.isAvatarImageSet = true;
+                user.avatarImage = data.image;
+                localStorage.setItem('drift-user', JSON.stringify(user));
+                navigate("/");
+            }
+            else {
+                toast.error("Error setting avatar. Please wait and retry", toastOptions);
+            }
+        }
     };
     
     return (
         <>
+        {isLoading ? (
+            <Container>
+                <img src={loader} alt="loading..." className="loader" />
+            </Container>
+        ) : (
             <Container>
                 <div className="title-container">
                     <h1>Pick an avatar for your profile picture</h1>
@@ -70,7 +100,9 @@ export default function SetAvatar() {
                         })
                     }
                 </div>
+                <button className="submit" onClick={setProfilePicture}>Set as profile avatar</button>
             </Container>
+        )}
             <ToastContainer />
         </>
     )
@@ -113,5 +145,29 @@ const Container = styled.div`
         .selected {
             border: 0.4rem solid #00CDCD;
         }
+    }
+    .submit {
+        padding: 1rem 2rem;
+        background-color: #00CDCD;
+        color: #0E143D;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        border-radius: 0.4rem;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        text-transform: uppercase;
+        transition: 0.2s ease-in-out;
+        &:hover {
+            background-color: #FFE8B5;
+        }
+        &:active {
+            background-color: #FFE8B5;
+        }
+    }
+    .loader {
+        width: 25vw;
+        border: 0.4rem solid black;
     }
 `;
