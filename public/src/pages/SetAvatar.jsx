@@ -80,7 +80,10 @@ export default function SetAvatar() {
         <>
         {isLoading ? (
             <Container>
-                <img src={loader} alt="loading..." className="loader" />
+                <div className="loader-container">
+                    <img src={loader} alt="loading..." className="loader" />
+                </div>
+                <span>Loading...</span>
             </Container>
         ) : (
             <Container>
@@ -117,6 +120,11 @@ const Container = styled.div`
     background-color: #1a2047;
     height: 100vh;
     width: 100vw;
+    span {
+        color: white;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
     .loader {
         max-inline-size: 100%;
     }
@@ -166,8 +174,16 @@ const Container = styled.div`
             background-color: #FFE8B5;
         }
     }
-    .loader {
-        width: 25vw;
-        border: 0.4rem solid black;
+    .loader-container {
+        height: 18vw;
+        width: 18vw;
+        background-color: white;
+        border-radius: 900px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 12vw;
+        }
     }
 `;
