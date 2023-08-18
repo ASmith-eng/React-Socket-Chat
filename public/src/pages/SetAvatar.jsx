@@ -55,7 +55,7 @@ export default function SetAvatar() {
     }, []);
 
     const setProfilePicture = async () => {
-        if(!selectedAvatar) {
+        if(selectedAvatar==null) {
             toast.error("Please select an avatar", toastOptions);
         }
         else {
