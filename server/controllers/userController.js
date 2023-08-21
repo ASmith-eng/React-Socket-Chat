@@ -37,10 +37,11 @@ module.exports.login = async (req, res, next) => {
         const { username, password } = req.body;
 
         let user = await User.findOne({ username });
-        user = await user.toObject();
         if(!user) {
             return res.json({ msg: "Incorrect username or password", status: false });
         }
+
+        user = await user.toObject();
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if(!isPasswordValid) {
@@ -62,7 +63,8 @@ module.exports.setAvatar = async (req, res, next) => {
         const userData = await User.findByIdAndUpdate(userId, {
             isAvatarImageSet: true,
             avatarImage
-        });
+        }, { new: true });
+
         return res.json({
             isSet: userData.isAvatarImageSet,
             image: userData.avatarImage
