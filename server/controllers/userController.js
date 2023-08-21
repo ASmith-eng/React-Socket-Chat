@@ -17,11 +17,12 @@ module.exports.register = async (req, res, next) => {
 
         const encryptedPassword = await bcrypt.hash(password, 10);
 
-        const user = await User.create({
+        let user = await User.create({
             email: email,
             username: username,
             password: encryptedPassword
         });
+        user = await user.toObject();
         delete user.password;
 
         return res.json({ status: true, user });
@@ -35,7 +36,8 @@ module.exports.login = async (req, res, next) => {
     try {
         const { username, password } = req.body;
 
-        const user = await User.findOne({ username });
+        let user = await User.findOne({ username });
+        user = await user.toObject();
         if(!user) {
             return res.json({ msg: "Incorrect username or password", status: false });
         }
