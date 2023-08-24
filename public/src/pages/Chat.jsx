@@ -5,12 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { allUsersRoute } from '../utils/apiRoutes';
 
 import Contacts from '../components/Contacts';
+import Welcome from '../components/Welcome';
+import ChatContainer from '../components/ChatContainer';
 
 function Chat() {
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState('');
     const [contacts, setContacts] = useState([]);
     const [currentChat, setCurrentChat] = useState('');
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const protectRoute = async () => {
         if(!localStorage.getItem('drift-user')) {
@@ -18,6 +21,7 @@ function Chat() {
         }
         else {
             setCurrentUser(await JSON.parse(localStorage.getItem('drift-user')));
+            setIsLoaded(true);
         }
     };
 
@@ -35,7 +39,7 @@ function Chat() {
 
     useEffect(() => {
         protectRoute();
-    }, []);
+    },[]);
 
     useEffect(() => {
         getContacts();
@@ -49,6 +53,12 @@ function Chat() {
         <Container>
             <div className="container">
                 <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
+                {isLoaded && !!currentChat===false ? (
+                    <Welcome currentUser={currentUser} />
+                ) : (
+                    <ChatContainer currentChat={currentChat} />
+                )}
+
             </div>
             <footer>
                 <span>
