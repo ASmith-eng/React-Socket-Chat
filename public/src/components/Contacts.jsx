@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import logo from '../assets/drift-high-resolution-logo-color-on-transparent-background.png';
+import waves from '../assets/waves.svg';
 
 export default function Contacts({contacts, currentUser, changeChat }) {
     const [currentUsername, setCurrentUsername] = useState('');
@@ -42,6 +43,7 @@ export default function Contacts({contacts, currentUser, changeChat }) {
                             })
                         }
                     </div>
+                    {/* <img src={waves} /> */}
                     <div className="current-user">
                         <div className="avatar">
                             <img src={`data:image/svg+xml;base64,${currentUserImage}`} alt="Your avatar" />
@@ -75,7 +77,7 @@ const Container = styled.div`
         flex-direction: column;
         align-items: center;
         overflow: auto;
-        gap: 0.8rem;
+        gap: 0.6rem;
         &::-webkit-scrollbar {
             width: 0.2rem;
             &-thumb {
@@ -87,18 +89,20 @@ const Container = styled.div`
         .contact {
             display: flex;
             color: white;
-            background-color: grey;
-            min-height: 5rem;
+            background-color: #FFFFFF39;
+            min-height: 4rem;
             width: 90%;
             cursor: pointer;
             border-radius: 0.2rem;
-            padding: 0.4rem 0.8rem;
+            padding: 0rem 0.8rem;
             gap: 1rem;
             align-items: center;
             transition: 0.5s ease-in-out;
             .avatar{
+                height: 3rem;
                 img {
                     height: 3rem;
+                    width: 3rem;
                 }
             }
             .username {

@@ -52,7 +52,7 @@ export default function SetAvatar() {
     useEffect(() => {
         protectRoute();
         fetchAvatars();
-    }, []);
+    },[]);
 
     const setProfilePicture = async () => {
         if(selectedAvatar==null) {
@@ -80,7 +80,7 @@ export default function SetAvatar() {
         <>
         {isLoading ? (
             <Container>
-                <div className="loader-container">
+                <div className="gif-container">
                     <img src={loader} alt="loading..." className="loader" />
                 </div>
                 <span>Loading...</span>
@@ -174,7 +174,7 @@ const Container = styled.div`
             background-color: #FFE8B5;
         }
     }
-    .loader-container {
+    .gif-container {
         height: 18vw;
         width: 18vw;
         background-color: white;
