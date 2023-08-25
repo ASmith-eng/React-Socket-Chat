@@ -56,6 +56,10 @@ const Container = styled.div`
     align-items: center;
     background-color: #040718;
     padding: 0.3rem 2rem;
+    @media screen and (min-width: 720px) and (max-width: 1080px) {
+        padding: 0 1rem;
+        gap: 1rem;
+    }
     .button-container {
         display: flex;
         align-items: center;
@@ -127,6 +131,12 @@ const Container = styled.div`
             cursor: pointer;
             transition: 0.2s ease-in-out;
             color: white;
+            @media screen and (min-width: 720px) and (max-width: 1080px) {
+                padding: 0.3rem 1rem;
+                svg {
+                    font-size: 1rem;
+                }
+            }
             svg {
                 color: inherit;
                 font-size: 1.8rem;
