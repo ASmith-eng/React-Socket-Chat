@@ -8,8 +8,9 @@ import Logout from './Logout';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
 
-export default function ChatContainer({currentChat, currentUser}) {
+export default function ChatContainer({currentChat, currentUser, socket}) {
     const [conversation, setConversation] = useState([]);
+    const [arrivalMessage, setArrivalMessage] = useState(null);
 
     const fetchChatMessages = async () => {
         const response = await axios.post(getAllMessagesRoute, {
@@ -20,7 +21,21 @@ export default function ChatContainer({currentChat, currentUser}) {
     };
 
     useEffect(() => {
-        fetchChatMessages();
+        if(socket.current) {
+            socket.current.on("msg-receive", (msg) => {
+                setArrivalMessage({fromSelf: false, message: msg})
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        arrivalMessage && setConversation((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage]);
+
+    useEffect(() => {
+        if(currentChat) {
+            fetchChatMessages();
+        }
     }, [currentChat]);
 
     const handleSendMessage = async (message) => {
@@ -28,7 +43,16 @@ export default function ChatContainer({currentChat, currentUser}) {
             from: currentUser._id,
             to: currentChat._id,
             message: message
-        })
+        });
+        socket.current.emit("send-msg", {
+            to: currentChat._id,
+            from: currentUser._id,
+            msg: message
+        });
+
+        const messages = [...conversation];
+        messages.push({fromSelf: true, message: message});
+        setConversation(messages);
     };
 
     return (

@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Messages({conversation}) {
+    const scrollRef = useRef();
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({behaviour: "smooth"});
+    }, [conversation]);
+
     return (
         <>
             <Container>
                 {
                     conversation.map((message) => {
                         return (
-                            <div>
+                            <div ref={scrollRef} key={uuidv4()}>
                                 <div className={`message ${message.fromSelf ? "sent" : "received"}`}>
                                     <div className="content">
                                         <p>
@@ -32,6 +39,14 @@ const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+    &::webkit-scrollbar {
+        width: 0.2rem;
+        &-thumb {
+            background-color: #FFFFFF39;
+            width: 0.1rem;
+            border-radius: 1rem;
+        }
+    }
     .message {
         display: flex;
         align-items: center;
