@@ -32,7 +32,7 @@ export default function ChatInput({handleSendMessage}) {
             <div className="button-container">
                 <div className="emoji">
                     <AiFillSmile onClick={handleEmojiPickerShowHide} />
-                    {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />}
+                    {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} searchPlaceholder='Search' />}
                 </div>
             </div>
             <form className="input-container" onSubmit={(event) => sendChat(event)}>
@@ -55,8 +55,7 @@ const Container = styled.div`
     grid-template-columns: 5% 95%;
     align-items: center;
     background-color: #040718;
-    padding: 0 2rem;
-    padding-bottom: 0.3rem;
+    padding: 0.3rem 2rem;
     .button-container {
         display: flex;
         align-items: center;
@@ -81,7 +80,7 @@ const Container = styled.div`
                 }
                 .emoji-categories {
                     button {
-                        filter: hue-rotate(180deg);
+                        color: white;
                     }
                 }
                 .emoji-search {

@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-import { sendMessageRoute } from '../utils/apiRoutes';
+import { sendMessageRoute, getAllMessagesRoute } from '../utils/apiRoutes';
 
 import Logout from './Logout';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
 
 export default function ChatContainer({currentChat, currentUser}) {
+    const [conversation, setConversation] = useState([]);
+
+    const fetchChatMessages = async () => {
+        const response = await axios.post(getAllMessagesRoute, {
+            from: currentUser._id,
+            to: currentChat._id
+        });
+        setConversation(response.data);
+    };
+
+    useEffect(() => {
+        fetchChatMessages();
+    }, [currentChat]);
+
     const handleSendMessage = async (message) => {
         await axios.post(sendMessageRoute, {
             from: currentUser._id,
@@ -32,7 +46,7 @@ export default function ChatContainer({currentChat, currentUser}) {
                         </div>
                         <Logout />
                     </header>
-                    <Messages />
+                    <Messages conversation={conversation} />
                     <ChatInput handleSendMessage={handleSendMessage} />
                 </>
             )}
@@ -42,6 +56,7 @@ export default function ChatContainer({currentChat, currentUser}) {
 
 const Container = styled.div`
     padding-top: 1rem;
+    overflow: hidden;
     .chat-header {
         display: flex;
         justify-content: space-between;
