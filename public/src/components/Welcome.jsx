@@ -22,7 +22,9 @@ const Container = styled.div`
     align-items: center;
     flex-direction: column;
     gap: 0.6rem;
+    background-color: #070b21;
     color: white;
+    border-radius: 0 0.8rem 0.8rem 0;
     .gif-container {
         height: 18vw;
         width: 18vw;

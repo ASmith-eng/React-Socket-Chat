@@ -79,25 +79,29 @@ export default function ChatContainer({currentChat, currentUser, socket}) {
 }
 
 const Container = styled.div`
-    padding-top: 1rem;
     overflow: hidden;
+    display: grid;
+    grid-template-rows: 10% 79% 11%;
+    border-radius: 0 0.8rem 0.8rem 0;
     .chat-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 2rem;
+        padding: 0.4rem 2rem 0 2rem;
+        background-color: #F5F68C;
         .user-details {
             display: flex;
             align-items: center;
             gap: 1rem;
             .avatar {
+                height: 3rem;
                 img {
                     height: 3rem;
                 }
             }
             .username {
                 h3 {
-                    color: white;
+                    color: #070b21;
                 }
             }
         }

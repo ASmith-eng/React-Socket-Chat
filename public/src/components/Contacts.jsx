@@ -62,6 +62,7 @@ const Container = styled.div`
     display: grid;
     grid-template-rows: 12% 75% 13%;
     overflow: hidden;
+    border-radius: 0.8rem 0 0 0.8rem;
     background-color: #070b21;
     .brand {
         display: flex;
@@ -121,7 +122,7 @@ const Container = styled.div`
         padding: 0.2rem 0.6rem;
         background-color: #0f1433;
         align-items: center;
-        gap: 2rem;
+        gap: 1rem;
         .avatar {
             display: flex;
             align-items: center;
