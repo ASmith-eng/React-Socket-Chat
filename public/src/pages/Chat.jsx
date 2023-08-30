@@ -84,10 +84,10 @@ const Container = styled.div`
     gap: 1rem;
     background-color: #1a2047;
     .container {
-        height: 85vh;
-        width: 85vw;
-        background-color: #040718;
+        height: 90vh;
+        width: 90vw;
         display: grid;
+        background-color: transparent; /**#040718**/
         grid-template-columns: 25% 75%;
         @media screen and (min-width: 720px) and (max-width: 1100px) {
             grid-template-columns: 35% 65%;

@@ -69,13 +69,13 @@ const Container = styled.div`
             position: relative;
             svg {
                 font-size: 1.5rem;
-                color: #ffff00C8;
+                color: rgba(245,246,140,1);
                 cursor: pointer;
             }
             .emoji-picker-react {
                 position: absolute;
                 top: -350px;
-                background-color: #FFFFFF39;
+                background-color: rgba(255,255,255,0.6);
                 border: 0.2rem solid white;
                 box-shadow: none;
                 -webkit-box-shadow: none;
@@ -88,11 +88,11 @@ const Container = styled.div`
                     }
                 }
                 .emoji-search {
-                    background-color: transparent;
                     border-color: white;
+                    color: #1a2047;
                 }
                 .emoji-group:before {
-                    colorL white;
+                    color: #1a2047;
                     background-color: transparent;
                 }
             }
