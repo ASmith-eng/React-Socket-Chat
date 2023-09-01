@@ -8,3 +8,4 @@ export const setAvatarRoute = `${host}/api/auth/setAvatar`;
 export const allUsersRoute = `${host}/api/auth/allusers`;
 export const sendMessageRoute = `${host}/api/messages/addmessage`;
 export const getAllMessagesRoute = `${host}/api/messages/getmessages`;
+export const getOnlineStatusRoute = `${host}/api/messages/getonlinestatus`;
