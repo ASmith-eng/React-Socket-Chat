@@ -66,9 +66,12 @@ function Chat() {
 
             </div>
             <footer>
-                <span>
+                <div>
+                    Made by <a href="https://github.com/ASmith-eng">Alex Smith</a>
+                </div>
+                <div>
                     <a href="https://www.flaticon.com/free-animated-icons/ocean" title="ocean animated icons">Ocean animated icons created by Freepik - Flaticon</a>
-                </span>
+                </div>
             </footer>
         </Container>
     )
@@ -87,15 +90,25 @@ const Container = styled.div`
         height: 90vh;
         width: 90vw;
         display: grid;
-        background-color: transparent; /**#040718**/
         grid-template-columns: 25% 75%;
+        background-color: transparent;
+        border-radius: 0.8rem;
+        box-shadow: 1px 2px 8px #070b21;
+        -webkit-box-shadow: 1px 2px 8px #070b21;
         @media screen and (min-width: 720px) and (max-width: 1100px) {
             grid-template-columns: 35% 65%;
         }
     }
     footer {
         height: 0.8rem;
+        width: 85%;
+        display: flex;
+        gap: 2rem;
         font-size: 0.8rem;
+        color: white;
+        a {
+            color: #00CDCD;
+        }
     }
 `;
 

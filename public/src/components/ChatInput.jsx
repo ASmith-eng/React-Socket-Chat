@@ -126,7 +126,8 @@ const Container = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #00CDCD;
+            background: rgb(4,7,24);
+            background: linear-gradient(40deg, rgba(4,7,24,1) 0%, rgba(26,32,71,1) 14%, rgba(5,105,162,1) 44%, rgba(0,205,205,1) 100%);
             border: none;
             cursor: pointer;
             transition: 0.2s ease-in-out;
@@ -143,7 +144,7 @@ const Container = styled.div`
             }
             &:hover {
                 color: #040718;
-                background-color: #FFE8B5;
+                background: #FFE8B5;
             }
         }
     }

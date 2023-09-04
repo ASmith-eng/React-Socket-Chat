@@ -114,7 +114,8 @@ const Container = styled.div`
         }
         .selected {
             color: #1a2047;
-            background-color: #FFE8B5;
+            background: rgb(204,173,105);
+            background: linear-gradient(54deg, rgba(204,173,105,1) 0%, rgba(219,191,128,1) 45%, rgba(255,232,181,1) 100%);
         }
     }
     .current-user {
