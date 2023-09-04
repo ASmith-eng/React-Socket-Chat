@@ -101,22 +101,26 @@ export default function ChatContainer({currentChat, currentUser, socket}) {
 const Container = styled.div`
     overflow: hidden;
     display: grid;
-    grid-template-rows: 10% 79% 11%;
+    grid-template-rows: 12% 77% 11%;
     border-radius: 0 0.8rem 0.8rem 0;
     .chat-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.4rem 2rem 0 2rem;
-        background-color: #F5F68C;
+        padding: 0 2rem;
+        background-color: #070b21;
         .user-details {
             display: flex;
             align-items: center;
             gap: 1rem;
+            padding: 0.2rem 1rem;
+            border-radius: 0.4rem;
+            background: rgb(204,173,105);
+            background: linear-gradient(54deg, rgba(204,173,105,1) 0%, rgba(219,191,128,1) 45%, rgba(255,232,181,1) 100%);
             .avatar {
-                height: 3rem;
+                height: 2.5rem;
                 img {
-                    height: 3rem;
+                    height: 2.5rem;
                 }
             }
             .username {

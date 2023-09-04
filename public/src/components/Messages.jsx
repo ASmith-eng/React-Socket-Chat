@@ -44,13 +44,15 @@ export default function Messages({conversation}) {
 }
 
 const Container = styled.div`
-    padding: 0rem 2rem;
+    padding: 0.6rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
     background: rgb(7,11,33);
-    background: linear-gradient(0deg, rgba(7,11,33,1) 0%, rgba(9,9,121,0.8) 34%, rgba(7,60,155,0.8) 56%, rgba(5,98,168,0.8) 66%, rgba(0,205,205,0.8) 88%, rgba(245,246,140,1) 99%);
+    background: linear-gradient(0deg, rgba(7,11,33,1) 0%, rgba(9,9,121,1) 34%, rgba(7,60,155,1) 66%, rgba(5,98,168,1) 99%);
+    /**background: rgb(7,11,33);
+    background: linear-gradient(0deg, rgba(7,11,33,1) 0%, rgba(9,9,121,0.8) 34%, rgba(7,60,155,0.8) 56%, rgba(5,98,168,0.8) 66%, rgba(0,205,205,0.8) 88%, rgba(245,246,140,1) 99%);**/
     &::webkit-scrollbar {
         width: 0.2rem;
         &-thumb {
@@ -63,7 +65,7 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         .content {
-            max-width: 45%;
+            max-width: 60%;
             overflow-wrap: break-word;
             padding: 0.5rem 1rem;
             font-size: 1.1rem;
