@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { FaCircle } from 'react-icons/fa';
+import { FiCircle } from 'react-icons/fi';
 
-import { sendMessageRoute, getAllMessagesRoute } from '../utils/apiRoutes';
+import { sendMessageRoute, getAllMessagesRoute, getOnlineStatusRoute } from '../utils/apiRoutes';
 
 import Logout from './Logout';
 import Messages from './Messages';
@@ -10,6 +12,7 @@ import ChatInput from './ChatInput';
 
 export default function ChatContainer({currentChat, currentUser, socket}) {
     const [conversation, setConversation] = useState([]);
+    const [userOnline, setUserOnline] = useState(false);
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
     const fetchChatMessages = async () => {
@@ -19,6 +22,13 @@ export default function ChatContainer({currentChat, currentUser, socket}) {
         });
         setConversation(response.data);
     };
+
+    const fetchOnlineStatus = async () => {
+        const status = await axios.post(getOnlineStatusRoute, {
+            userId: currentChat._id
+        });
+        setUserOnline(status.data);
+    }
 
     useEffect(() => {
         if(socket.current) {
@@ -35,6 +45,7 @@ export default function ChatContainer({currentChat, currentUser, socket}) {
     useEffect(() => {
         if(currentChat) {
             fetchChatMessages();
+            fetchOnlineStatus();
         }
     }, [currentChat]);
 
@@ -67,6 +78,15 @@ export default function ChatContainer({currentChat, currentUser, socket}) {
                             <div className="username">
                                 <h3>{currentChat.username}</h3>
                             </div>
+                            {userOnline ? (
+                                <div className="status online" title="Online">
+                                    <FaCircle />
+                                </div>
+                            ) : (
+                                <div className="status offline" title="Offline">
+                                    <FiCircle />
+                                </div>
+                            )}
                         </div>
                         <Logout />
                     </header>
@@ -81,27 +101,45 @@ export default function ChatContainer({currentChat, currentUser, socket}) {
 const Container = styled.div`
     overflow: hidden;
     display: grid;
-    grid-template-rows: 10% 79% 11%;
+    grid-template-rows: 12% 77% 11%;
     border-radius: 0 0.8rem 0.8rem 0;
     .chat-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.4rem 2rem 0 2rem;
-        background-color: #F5F68C;
+        padding: 0 2rem;
+        background-color: #070b21;
         .user-details {
             display: flex;
             align-items: center;
             gap: 1rem;
+            padding: 0.2rem 1rem;
+            border-radius: 0.4rem;
+            background: rgb(204,173,105);
+            background: linear-gradient(54deg, rgba(204,173,105,1) 0%, rgba(219,191,128,1) 45%, rgba(255,232,181,1) 100%);
             .avatar {
-                height: 3rem;
+                height: 2.5rem;
                 img {
-                    height: 3rem;
+                    height: 2.5rem;
                 }
             }
             .username {
                 h3 {
                     color: #070b21;
+                }
+            }
+            .status {
+                display: flex;
+                align-items: center;
+            }
+            .online {
+                svg {
+                    color: green;
+                }
+            }
+            .offline {
+                svg {
+                    color: #040718;
                 }
             }
         }

@@ -35,3 +35,13 @@ module.exports.getAllMessages = async (req, res, next) => {
         next(err);
     }
 };
+
+module.exports.getUserOnlineStatus = async (req, res, next) => {
+    try {
+        if(global.onlineUsers) {
+            res.json(global.onlineUsers.has(req.body.userId));
+        }
+    } catch (err) {
+        next(err);
+    }
+};

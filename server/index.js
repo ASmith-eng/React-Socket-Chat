@@ -49,5 +49,9 @@ io.on("connection", (socket) => {
         if(sendUserSocket) {
             socket.to(sendUserSocket).emit("msg-receive", data.msg);
         }
-    })
+    });
+
+    // socket.on("disconnect", (userId) => {
+    //     onlineUsers.delete(userId);
+    // });
 });
