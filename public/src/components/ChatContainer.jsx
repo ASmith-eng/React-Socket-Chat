@@ -35,6 +35,12 @@ export default function ChatContainer({currentChat, currentUser, socket}) {
             socket.current.on("msg-receive", (msg) => {
                 setArrivalMessage({fromSelf: false, message: msg})
             });
+            socket.current.on("contact-disconnect", (contactId) => {
+                if(contactId===currentChat._id) setUserOnline(false);
+            });
+            socket.current.on("contact-connect", (contactId) => {
+                if(contactId===currentChat._id) setUserOnline(true);
+            })
         }
     }, []);
 

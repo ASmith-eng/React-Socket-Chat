@@ -42,6 +42,18 @@ io.on("connection", (socket) => {
     global.chatSocket = socket;
     socket.on("add-user", (userId) => {
         onlineUsers.set(userId, socket.id);
+
+        socket.broadcast.emit("contact-connect", userId);
+    });
+
+    socket.on("disconnect", () => {
+        if(!!onlineUsers.size) {
+            const offlineUser = [...onlineUsers].find(([key, value]) => value == socket.id)[0];
+
+            onlineUsers.delete(offlineUser);
+            
+            socket.broadcast.emit("contact-disconnect", offlineUser);
+        }
     });
 
     socket.on("send-msg", (data) => {
@@ -50,8 +62,4 @@ io.on("connection", (socket) => {
             socket.to(sendUserSocket).emit("msg-receive", data.msg);
         }
     });
-
-    // socket.on("disconnect", (userId) => {
-    //     onlineUsers.delete(userId);
-    // });
 });
