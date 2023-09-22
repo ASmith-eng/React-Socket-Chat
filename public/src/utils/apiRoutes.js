@@ -1,7 +1,12 @@
-const LOCALHOST="http://localhost:5050"
-const REMOTEHOST="http://192.168.1.188:5050"
-
-export const host = LOCALHOST;
+const hostname = '';
+switch(process.env.NODE_ENV) {
+    case 'production':
+        hostname = process.env.REACT_APP_PRODUCTION_HOSTNAME
+    case 'development':
+        hostname = "http://localhost:5050";
+}
+       
+export const host = hostname;
 export const registerRoute = `${host}/api/auth/register`;
 export const loginRoute = `${host}/api/auth/login`;
 export const setAvatarRoute = `${host}/api/auth/setAvatar`;
