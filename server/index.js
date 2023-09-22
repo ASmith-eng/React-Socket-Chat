@@ -48,11 +48,13 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
         if(!!onlineUsers.size) {
-            const offlineUser = [...onlineUsers].find(([key, value]) => value == socket.id)[0];
+            const offlineUser = [...onlineUsers].find(([key, value]) => value == socket.id);
 
-            onlineUsers.delete(offlineUser);
-            
-            socket.broadcast.emit("contact-disconnect", offlineUser);
+            if(offlineUser.length) {
+                onlineUsers.delete(offlineUser[0]);
+                
+                socket.broadcast.emit("contact-disconnect", offlineUser[0]);
+            }
         }
     });
 
