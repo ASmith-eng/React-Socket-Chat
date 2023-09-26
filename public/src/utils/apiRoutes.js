@@ -1,9 +1,14 @@
-const hostname = '';
+let hostname = '';
 switch(process.env.NODE_ENV) {
     case 'production':
         hostname = process.env.REACT_APP_PRODUCTION_HOSTNAME
+        break;
     case 'development':
         hostname = "http://localhost:5050";
+        break;
+    default:
+        hostname = "http://localhost:5050";
+        break;
 }
        
 export const host = hostname;
