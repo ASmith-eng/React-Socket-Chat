@@ -6,6 +6,7 @@
   "scripts": {
     "server": "nodemon --quiet server",
     "client": "npm start --prefix public",
+    "client-build": "npm run build --prefix public",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
