@@ -1,13 +1,13 @@
 let hostname = '';
 switch(process.env.NODE_ENV) {
     case 'production':
-        hostname = process.env.REACT_APP_PRODUCTION_HOSTNAME
+        hostname = process.env.REACT_APP_PRODUCTION_HOSTNAME;
         break;
     case 'development':
-        hostname = "http://localhost:5050";
+        hostname = `http://localhost:${process.env.REACT_APP_SERVER_PORT}`;
         break;
     default:
-        hostname = "http://localhost:5050";
+        hostname = `http://localhost:${process.env.REACT_APP_SERVER_PORT}`;
         break;
 }
        
