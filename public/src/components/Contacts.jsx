@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import logo from '../assets/drift-high-resolution-logo-color-on-transparent-background.png';
-import waves from '../assets/waves.svg';
+// import waves from '../assets/waves.svg';
 
 export default function Contacts({contacts, currentUser, changeChat }) {
     const [currentUsername, setCurrentUsername] = useState('');

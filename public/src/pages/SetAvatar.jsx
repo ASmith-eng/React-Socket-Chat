@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import multiavatar from '@multiavatar/multiavatar/esm'
 
 import loader from "../assets/loader.gif";
 import { setAvatarRoute } from "../utils/apiRoutes";
@@ -19,7 +20,6 @@ const toastOptions = {
 };
 
 export default function SetAvatar() {
-    const api = 'https://api.multiavatar.com/45678945';
     const navigate = useNavigate();
 
     const [avatars, setAvatars] = useState([]);
@@ -29,16 +29,15 @@ export default function SetAvatar() {
     const fetchAvatars = async () => {
         const data = [];
         try {
-            for(let i=0; i<4; i++) {
-                const image = await axios.get(
-                    `${api}/${Math.round(Math.random()*1000)}`
-                );
-                const buffer = new Buffer(image.data);
+            for (let i=0; i<4; i++) {
+                const generatedAvatar = multiavatar(Math.round(Math.random()*1000));
+                const buffer = new Buffer(generatedAvatar);
                 data.push(buffer.toString("base64"));
             }
         } catch {
             console.log("Error occurred fetching avatars");
         }
+        console.log(data);
         setAvatars(data);
         setIsLoading(false);
     };
@@ -52,7 +51,7 @@ export default function SetAvatar() {
     useEffect(() => {
         protectRoute();
         fetchAvatars();
-    },[]);
+    });
 
     const setProfilePicture = async () => {
         if(selectedAvatar==null) {
